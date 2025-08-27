@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  ObservationExploration
-//
-//  Created by Artem Mir on 27.08.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {

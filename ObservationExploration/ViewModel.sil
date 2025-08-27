@@ -1,0 +1,845 @@
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+import Foundation
+
+final class ViewModel {
+  @_hasStorage @_hasInitialValue private final var _observableProperty: String { get set }
+  @_hasInitialValue final var observableProperty: String {
+    @storageRestrictions(initializes: _observableProperty) init(initialValue)
+    get
+    set
+    _modify
+  }
+  @_hasStorage @_hasInitialValue final var observationIgnoredProperty: String { get set }
+  @_hasStorage @_hasInitialValue private final var _privateProperty: String { get set }
+  @_hasInitialValue private final var privateProperty: String {
+    @storageRestrictions(initializes: _privateProperty) init(initialValue)
+    get
+    set
+    _modify
+  }
+  @_hasStorage @_hasInitialValue private final let _$observationRegistrar: ObservationRegistrar { get }
+  internal nonisolated final func access<Member>(keyPath: KeyPath<ViewModel, Member>)
+  internal nonisolated final func withMutation<Member, MutationResult>(keyPath: KeyPath<ViewModel, Member>, _ mutation: () throws -> MutationResult) rethrows -> MutationResult
+  @objc deinit
+  init()
+}
+
+extension ViewModel : Observable {
+}
+
+// variable initialization expression of ViewModel.observableProperty
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC18observablePropertySSvpfi : $@convention(thin) () -> @owned String {
+bb0:
+  %0 = string_literal utf8 "Hello, World!"        // user: %5
+  %1 = integer_literal $Builtin.Word, 13          // user: %5
+  %2 = integer_literal $Builtin.Int1, -1          // user: %5
+  %3 = metatype $@thin String.Type                // user: %5
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %4 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %5
+  %5 = apply %4(%0, %1, %2, %3) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %6
+  return %5 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC18observablePropertySSvpfi'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+// Isolation: unspecified
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// ViewModel._observableProperty.getter
+// Isolation: unspecified
+sil private [transparent] [ossa] @$s9ViewModelAAC19_observableProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String {
+// %0 "self"                                      // users: %2, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel._observableProperty // user: %3
+  %3 = begin_access [read] [dynamic] %2 : $*String // users: %5, %4
+  %4 = load [copy] %3 : $*String                  // user: %6
+  end_access %3 : $*String                        // id: %5
+  return %4 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC19_observableProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg'
+
+// ViewModel._observableProperty.setter
+// Isolation: unspecified
+sil private [transparent] [ossa] @$s9ViewModelAAC19_observableProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () {
+// %0 "value"                                     // users: %11, %4, %2
+// %1 "self"                                      // users: %6, %3
+bb0(%0 : @owned $String, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $String, let, name "value", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = begin_borrow %0 : $String                  // users: %10, %5
+  %5 = copy_value %4 : $String                    // user: %8
+  %6 = ref_element_addr %1 : $ViewModel, #ViewModel._observableProperty // user: %7
+  %7 = begin_access [modify] [dynamic] %6 : $*String // users: %9, %8
+  assign %5 to %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  end_borrow %4 : $String                         // id: %10
+  destroy_value %0 : $String                      // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC19_observableProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs'
+
+// ViewModel.observableProperty.init
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAAC18observablePropertySSvi : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String {
+// %0 "_observableProperty"                       // user: %3
+// %1 "initialValue"                              // users: %11, %5, %4
+// %2 "$metatype"
+bb0(%0 : $*String, %1 : @owned $String, %2 : $@thick ViewModel.Type):
+  %3 = mark_uninitialized [out] %0 : $*String     // user: %7
+  debug_value %1 : $String, let, name "initialValue", argno 1 // id: %4
+  %5 = begin_borrow %1 : $String                  // users: %10, %6
+  %6 = copy_value %5 : $String                    // user: %8
+  %7 = begin_access [modify] [unknown] %3 : $*String // users: %9, %8
+  assign %6 to %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  end_borrow %5 : $String                         // id: %10
+  destroy_value %1 : $String                      // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC18observablePropertySSvi'
+
+// ViewModel.observableProperty.getter
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String {
+// %0 "self"                                      // users: %7, %5, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %3
+  %3 = upcast %2 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %6, %5
+  // function_ref ViewModel.access<A>(keyPath:)
+  %4 = function_ref @$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> () // user: %5
+  %5 = apply %4<String>(%3, %0) : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> ()
+  destroy_value %3 : $KeyPath<ViewModel, String>  // id: %6
+  %7 = ref_element_addr %0 : $ViewModel, #ViewModel._observableProperty // user: %8
+  %8 = begin_access [read] [dynamic] %7 : $*String // users: %10, %9
+  %9 = load [copy] %8 : $*String                  // user: %11
+  end_access %8 : $*String                        // id: %10
+  return %9 : $String                             // id: %11
+} // end sil function '$s9ViewModelAAC18observablePropertySSvg'
+
+// key path getter for ViewModel.observableProperty : ViewModel
+sil shared [thunk] [ossa] @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String {
+// %0                                             // user: %9
+// %1                                             // user: %3
+bb0(%0 : $*String, %1 : $*ViewModel):
+  %2 = alloc_stack $ViewModel                     // users: %11, %4, %3
+  copy_addr %1 to [init] %2 : $*ViewModel         // id: %3
+  %4 = load [take] %2 : $*ViewModel               // users: %10, %5
+  %5 = begin_borrow %4 : $ViewModel               // users: %8, %7
+  // function_ref ViewModel.observableProperty.getter
+  %6 = function_ref @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String // user: %7
+  %7 = apply %6(%5) : $@convention(method) (@guaranteed ViewModel) -> @owned String // user: %9
+  end_borrow %5 : $ViewModel                      // id: %8
+  store %7 to [init] %0 : $*String                // id: %9
+  destroy_value %4 : $ViewModel                   // id: %10
+  dealloc_stack %2 : $*ViewModel                  // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC18observablePropertySSvpABTK'
+
+// key path setter for ViewModel.observableProperty : ViewModel
+sil shared [thunk] [ossa] @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> () {
+// %0                                             // user: %3
+// %1                                             // user: %6
+bb0(%0 : $*String, %1 : $*ViewModel):
+  %2 = alloc_stack $String                        // users: %12, %4, %3
+  copy_addr %0 to [init] %2 : $*String            // id: %3
+  %4 = load [take] %2 : $*String                  // user: %9
+  %5 = alloc_stack $ViewModel                     // users: %11, %7, %6
+  copy_addr %1 to [init] %5 : $*ViewModel         // id: %6
+  %7 = load [take] %5 : $*ViewModel               // users: %10, %9
+  // function_ref ViewModel.observableProperty.setter
+  %8 = function_ref @$s9ViewModelAAC18observablePropertySSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // user: %9
+  %9 = apply %8(%4, %7) : $@convention(method) (@owned String, @guaranteed ViewModel) -> ()
+  destroy_value %7 : $ViewModel                   // id: %10
+  dealloc_stack %5 : $*ViewModel                  // id: %11
+  dealloc_stack %2 : $*String                     // id: %12
+  %13 = tuple ()                                  // user: %14
+  return %13 : $()                                // id: %14
+} // end sil function '$s9ViewModelAAC18observablePropertySSvpABTk'
+
+// ViewModel.observableProperty.setter
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAAC18observablePropertySSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () {
+// %0 "newValue"                                  // users: %20, %9, %2
+// %1 "self"                                      // users: %13, %8, %3
+bb0(%0 : @owned $String, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $String, let, name "newValue", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = alloc_stack $()                            // users: %19, %18, %13
+  %5 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %6
+  %6 = upcast %5 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %17, %13
+  // function_ref closure #1 in ViewModel.observableProperty.setter
+  %7 = function_ref @$s9ViewModelAAC18observablePropertySSvsyyXEfU_ : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> // user: %10
+  %8 = copy_value %1 : $ViewModel                 // user: %10
+  %9 = copy_value %0 : $String                    // user: %10
+  %10 = partial_apply [callee_guaranteed] %7(%8, %9) : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> // users: %16, %11
+  %11 = convert_escape_to_noescape [not_guaranteed] %10 : $@callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> to $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // users: %15, %13
+  // function_ref ViewModel.withMutation<A, B>(keyPath:_:)
+  %12 = function_ref @$s9ViewModelAAC12withMutation7keyPath_q_s03KeyF0CyABxG_q_yKXEtKr0_lF : $@convention(method) <τ_0_0, τ_0_1> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_1>, @guaranteed ViewModel) -> (@out τ_0_1, @error any Error) // user: %13
+  try_apply %12<String, ()>(%4, %6, %11, %1) : $@convention(method) <τ_0_0, τ_0_1> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_1>, @guaranteed ViewModel) -> (@out τ_0_1, @error any Error), normal bb1, error bb2 // id: %13
+
+bb1(%14 : $()):                                   // Preds: bb0
+  destroy_value %11 : $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // id: %15
+  destroy_value %10 : $@callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // id: %16
+  destroy_value %6 : $KeyPath<ViewModel, String>  // id: %17
+  %18 = load [trivial] %4 : $*()
+  dealloc_stack %4 : $*()                         // id: %19
+  destroy_value %0 : $String                      // id: %20
+  %21 = tuple ()                                  // user: %22
+  return %21 : $()                                // id: %22
+
+bb2(%23 : @owned $any Error):                     // Preds: bb0
+  unreachable                                     // id: %24
+} // end sil function '$s9ViewModelAAC18observablePropertySSvs'
+
+// ViewModel.access<A>(keyPath:)
+// Isolation: nonisolated
+sil hidden [ossa] @$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF : $@convention(method) <Member> (@guaranteed KeyPath<ViewModel, Member>, @guaranteed ViewModel) -> () {
+// %0 "keyPath"                                   // users: %10, %2
+// %1 "self"                                      // users: %8, %4, %3
+bb0(%0 : @guaranteed $KeyPath<ViewModel, Member>, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $KeyPath<ViewModel, Member>, let, name "keyPath", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = ref_element_addr %1 : $ViewModel, #ViewModel._$observationRegistrar // user: %6
+  %5 = alloc_stack $ObservationRegistrar          // users: %14, %13, %10, %6
+  copy_addr %4 to [init] %5 : $*ObservationRegistrar // id: %6
+  %7 = alloc_stack $ViewModel                     // users: %12, %8
+  %8 = store_borrow %1 to %7 : $*ViewModel        // users: %11, %10
+  // function_ref ObservationRegistrar.access<A, B>(_:keyPath:)
+  %9 = function_ref @$s11Observation0A9RegistrarV6access_7keyPathyx_s03KeyE0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> () // user: %10
+  %10 = apply %9<ViewModel, Member>(%8, %0, %5) : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+  end_borrow %8 : $*ViewModel                     // id: %11
+  dealloc_stack %7 : $*ViewModel                  // id: %12
+  destroy_addr %5 : $*ObservationRegistrar        // id: %13
+  dealloc_stack %5 : $*ObservationRegistrar       // id: %14
+  %15 = tuple ()                                  // user: %16
+  return %15 : $()                                // id: %16
+} // end sil function '$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF'
+
+// closure #1 in ViewModel.observableProperty.setter
+// Isolation: nonisolated
+sil private [ossa] @$s9ViewModelAAC18observablePropertySSvsyyXEfU_ : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> {
+// %0 "$return_value"
+// %1 "self"                                      // users: %7, %4
+// %2 "newValue"                                  // users: %6, %5
+bb0(%0 : $*(), %1 : @closureCapture @guaranteed $ViewModel, %2 : @closureCapture @guaranteed $String):
+  debug_value undef : $any Error, var, name "$error", argno 1 // id: %3
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %4
+  debug_value %2 : $String, let, name "newValue", argno 3 // id: %5
+  %6 = copy_value %2 : $String                    // user: %9
+  %7 = ref_element_addr %1 : $ViewModel, #ViewModel._observableProperty // user: %8
+  %8 = begin_access [modify] [dynamic] %7 : $*String // users: %10, %9
+  assign %6 to %8 : $*String                      // id: %9
+  end_access %8 : $*String                        // id: %10
+  %11 = tuple ()                                  // user: %12
+  return %11 : $()                                // id: %12
+} // end sil function '$s9ViewModelAAC18observablePropertySSvsyyXEfU_'
+
+// ViewModel.withMutation<A, B>(keyPath:_:)
+// Isolation: nonisolated
+sil hidden [ossa] @$s9ViewModelAAC12withMutation7keyPath_q_s03KeyF0CyABxG_q_yKXEtKr0_lF : $@convention(method) <Member, MutationResult> (@guaranteed KeyPath<ViewModel, Member>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <MutationResult>, @guaranteed ViewModel) -> (@out MutationResult, @error any Error) {
+// %0 "$return_value"                             // user: %14
+// %1 "keyPath"                                   // users: %14, %4
+// %2 "mutation"                                  // users: %14, %5
+// %3 "self"                                      // users: %12, %8, %6
+bb0(%0 : $*MutationResult, %1 : @guaranteed $KeyPath<ViewModel, Member>, %2 : @guaranteed $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <MutationResult>, %3 : @guaranteed $ViewModel):
+  debug_value %1 : $KeyPath<ViewModel, Member>, let, name "keyPath", argno 1 // id: %4
+  debug_value %2 : $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <MutationResult>, let, name "mutation", argno 2 // id: %5
+  debug_value %3 : $ViewModel, let, name "self", argno 3 // id: %6
+  debug_value undef : $any Error, var, name "$error", argno 4 // id: %7
+  %8 = ref_element_addr %3 : $ViewModel, #ViewModel._$observationRegistrar // user: %10
+  %9 = alloc_stack $ObservationRegistrar          // users: %19, %18, %14, %26, %25, %10
+  copy_addr %8 to [init] %9 : $*ObservationRegistrar // id: %10
+  %11 = alloc_stack $ViewModel                    // users: %17, %24, %12
+  %12 = store_borrow %3 to %11 : $*ViewModel      // users: %16, %14, %23
+  // function_ref ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)
+  %13 = function_ref @$s11Observation0A9RegistrarV12withMutation2of7keyPath_q0_x_s03KeyG0Cyxq_Gq0_yKXEtKAA10ObservableRzr1_lF : $@convention(method) <τ_0_0, τ_0_1, τ_0_2 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_2>, @in_guaranteed ObservationRegistrar) -> (@out τ_0_2, @error any Error) // user: %14
+  try_apply %13<ViewModel, Member, MutationResult>(%0, %12, %1, %2, %9) : $@convention(method) <τ_0_0, τ_0_1, τ_0_2 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_2>, @in_guaranteed ObservationRegistrar) -> (@out τ_0_2, @error any Error), normal bb1, error bb2 // id: %14
+
+bb1(%15 : $()):                                   // Preds: bb0
+  end_borrow %12 : $*ViewModel                    // id: %16
+  dealloc_stack %11 : $*ViewModel                 // id: %17
+  destroy_addr %9 : $*ObservationRegistrar        // id: %18
+  dealloc_stack %9 : $*ObservationRegistrar       // id: %19
+  %20 = tuple ()                                  // user: %21
+  return %20 : $()                                // id: %21
+
+// %22                                            // user: %27
+bb2(%22 : @owned $any Error):                     // Preds: bb0
+  end_borrow %12 : $*ViewModel                    // id: %23
+  dealloc_stack %11 : $*ViewModel                 // id: %24
+  destroy_addr %9 : $*ObservationRegistrar        // id: %25
+  dealloc_stack %9 : $*ObservationRegistrar       // id: %26
+  throw %22 : $any Error                          // id: %27
+} // end sil function '$s9ViewModelAAC12withMutation7keyPath_q_s03KeyF0CyABxG_q_yKXEtKr0_lF'
+
+// ViewModel.observableProperty.modify
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAAC18observablePropertySSvM : $@yield_once @convention(method) (@guaranteed ViewModel) -> @yields @inout String {
+// %0 "self"                                      // users: %26, %31, %21, %11, %7, %5, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %3
+  %3 = upcast %2 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %6, %5
+  // function_ref ViewModel.access<A>(keyPath:)
+  %4 = function_ref @$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> () // user: %5
+  %5 = apply %4<String>(%3, %0) : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> ()
+  destroy_value %3 : $KeyPath<ViewModel, String>  // id: %6
+  %7 = ref_element_addr %0 : $ViewModel, #ViewModel._$observationRegistrar // user: %9
+  %8 = alloc_stack $ObservationRegistrar          // users: %20, %19, %15, %9
+  copy_addr %7 to [init] %8 : $*ObservationRegistrar // id: %9
+  %10 = alloc_stack $ViewModel                    // users: %18, %11
+  %11 = store_borrow %0 to %10 : $*ViewModel      // users: %17, %15
+  %12 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %13
+  %13 = upcast %12 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %16, %15
+  // function_ref ObservationRegistrar.willSet<A, B>(_:keyPath:)
+  %14 = function_ref @$s11Observation0A9RegistrarV7willSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> () // user: %15
+  %15 = apply %14<ViewModel, String>(%11, %13, %8) : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+  destroy_value %13 : $KeyPath<ViewModel, String> // id: %16
+  end_borrow %11 : $*ViewModel                    // id: %17
+  dealloc_stack %10 : $*ViewModel                 // id: %18
+  destroy_addr %8 : $*ObservationRegistrar        // id: %19
+  dealloc_stack %8 : $*ObservationRegistrar       // id: %20
+  %21 = ref_element_addr %0 : $ViewModel, #ViewModel._observableProperty // user: %22
+  %22 = begin_access [modify] [dynamic] %21 : $*String // users: %24, %29, %23
+  yield %22 : $*String, resume bb1, unwind bb2    // id: %23
+
+bb1:                                              // Preds: bb0
+  end_access %22 : $*String                       // id: %24
+  // function_ref $defer #1 () in ViewModel.observableProperty.modify
+  %25 = function_ref @$s9ViewModelAAC18observablePropertySSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () // user: %26
+  %26 = apply %25(%0) : $@convention(thin) (@guaranteed ViewModel) -> ()
+  %27 = tuple ()                                  // user: %28
+  return %27 : $()                                // id: %28
+
+bb2:                                              // Preds: bb0
+  end_access %22 : $*String                       // id: %29
+  // function_ref $defer #1 () in ViewModel.observableProperty.modify
+  %30 = function_ref @$s9ViewModelAAC18observablePropertySSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () // user: %31
+  %31 = apply %30(%0) : $@convention(thin) (@guaranteed ViewModel) -> ()
+  unwind                                          // id: %32
+} // end sil function '$s9ViewModelAAC18observablePropertySSvM'
+
+// ObservationRegistrar.willSet<A, B>(_:keyPath:)
+// Isolation: unspecified
+sil [available 14.0] @$s11Observation0A9RegistrarV7willSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+
+// $defer #1 () in ViewModel.observableProperty.modify
+// Isolation: unspecified
+sil private [ossa] @$s9ViewModelAAC18observablePropertySSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () {
+// %0 "self"                                      // users: %6, %2, %1
+bb0(%0 : @closureCapture @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel._$observationRegistrar // user: %4
+  %3 = alloc_stack $ObservationRegistrar          // users: %15, %14, %10, %4
+  copy_addr %2 to [init] %3 : $*ObservationRegistrar // id: %4
+  %5 = alloc_stack $ViewModel                     // users: %13, %6
+  %6 = store_borrow %0 to %5 : $*ViewModel        // users: %12, %10
+  %7 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC18observablePropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC18observablePropertySSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC18observablePropertySSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %8
+  %8 = upcast %7 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %11, %10
+  // function_ref ObservationRegistrar.didSet<A, B>(_:keyPath:)
+  %9 = function_ref @$s11Observation0A9RegistrarV6didSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> () // user: %10
+  %10 = apply %9<ViewModel, String>(%6, %8, %3) : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+  destroy_value %8 : $KeyPath<ViewModel, String>  // id: %11
+  end_borrow %6 : $*ViewModel                     // id: %12
+  dealloc_stack %5 : $*ViewModel                  // id: %13
+  destroy_addr %3 : $*ObservationRegistrar        // id: %14
+  dealloc_stack %3 : $*ObservationRegistrar       // id: %15
+  %16 = tuple ()                                  // user: %17
+  return %16 : $()                                // id: %17
+} // end sil function '$s9ViewModelAAC18observablePropertySSvM6$deferL_yyF'
+
+// variable initialization expression of ViewModel.observationIgnoredProperty
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC25observationIgnoredPropertySSvpfi : $@convention(thin) () -> @owned String {
+bb0:
+  %0 = string_literal utf8 "Hello, World!"        // user: %5
+  %1 = integer_literal $Builtin.Word, 13          // user: %5
+  %2 = integer_literal $Builtin.Int1, -1          // user: %5
+  %3 = metatype $@thin String.Type                // user: %5
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %4 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %5
+  %5 = apply %4(%0, %1, %2, %3) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %6
+  return %5 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC25observationIgnoredPropertySSvpfi'
+
+// ViewModel.observationIgnoredProperty.getter
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC25observationIgnoredPropertySSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String {
+// %0 "self"                                      // users: %2, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel.observationIgnoredProperty // user: %3
+  %3 = begin_access [read] [dynamic] %2 : $*String // users: %5, %4
+  %4 = load [copy] %3 : $*String                  // user: %6
+  end_access %3 : $*String                        // id: %5
+  return %4 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC25observationIgnoredPropertySSvg'
+
+// ViewModel.observationIgnoredProperty.setter
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC25observationIgnoredPropertySSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () {
+// %0 "value"                                     // users: %11, %4, %2
+// %1 "self"                                      // users: %6, %3
+bb0(%0 : @owned $String, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $String, let, name "value", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = begin_borrow %0 : $String                  // users: %10, %5
+  %5 = copy_value %4 : $String                    // user: %8
+  %6 = ref_element_addr %1 : $ViewModel, #ViewModel.observationIgnoredProperty // user: %7
+  %7 = begin_access [modify] [dynamic] %6 : $*String // users: %9, %8
+  assign %5 to %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  end_borrow %4 : $String                         // id: %10
+  destroy_value %0 : $String                      // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC25observationIgnoredPropertySSvs'
+
+// ViewModel.observationIgnoredProperty.modify
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC25observationIgnoredPropertySSvM : $@yield_once @convention(method) (@guaranteed ViewModel) -> @yields @inout String {
+// %0 "self"                                      // users: %2, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel.observationIgnoredProperty // user: %3
+  %3 = begin_access [modify] [dynamic] %2 : $*String // users: %5, %8, %4
+  yield %3 : $*String, resume bb1, unwind bb2     // id: %4
+
+bb1:                                              // Preds: bb0
+  end_access %3 : $*String                        // id: %5
+  %6 = tuple ()                                   // user: %7
+  return %6 : $()                                 // id: %7
+
+bb2:                                              // Preds: bb0
+  end_access %3 : $*String                        // id: %8
+  unwind                                          // id: %9
+} // end sil function '$s9ViewModelAAC25observationIgnoredPropertySSvM'
+
+// variable initialization expression of ViewModel.privateProperty
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpfi : $@convention(thin) () -> @owned String {
+bb0:
+  %0 = string_literal utf8 "Hello, World!"        // user: %5
+  %1 = integer_literal $Builtin.Word, 13          // user: %5
+  %2 = integer_literal $Builtin.Int1, -1          // user: %5
+  %3 = metatype $@thin String.Type                // user: %5
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %4 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %5
+  %5 = apply %4(%0, %1, %2, %3) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %6
+  return %5 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpfi'
+
+// ViewModel._privateProperty.getter
+// Isolation: unspecified
+sil private [transparent] [ossa] @$s9ViewModelAAC16_privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String {
+// %0 "self"                                      // users: %2, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel._privateProperty // user: %3
+  %3 = begin_access [read] [dynamic] %2 : $*String // users: %5, %4
+  %4 = load [copy] %3 : $*String                  // user: %6
+  end_access %3 : $*String                        // id: %5
+  return %4 : $String                             // id: %6
+} // end sil function '$s9ViewModelAAC16_privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg'
+
+// ViewModel._privateProperty.setter
+// Isolation: unspecified
+sil private [transparent] [ossa] @$s9ViewModelAAC16_privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () {
+// %0 "value"                                     // users: %11, %4, %2
+// %1 "self"                                      // users: %6, %3
+bb0(%0 : @owned $String, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $String, let, name "value", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = begin_borrow %0 : $String                  // users: %10, %5
+  %5 = copy_value %4 : $String                    // user: %8
+  %6 = ref_element_addr %1 : $ViewModel, #ViewModel._privateProperty // user: %7
+  %7 = begin_access [modify] [dynamic] %6 : $*String // users: %9, %8
+  assign %5 to %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  end_borrow %4 : $String                         // id: %10
+  destroy_value %0 : $String                      // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC16_privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs'
+
+// ViewModel.privateProperty.init
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvi : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String {
+// %0 "_privateProperty"                          // user: %3
+// %1 "initialValue"                              // users: %11, %5, %4
+// %2 "$metatype"
+bb0(%0 : $*String, %1 : @owned $String, %2 : $@thick ViewModel.Type):
+  %3 = mark_uninitialized [out] %0 : $*String     // user: %7
+  debug_value %1 : $String, let, name "initialValue", argno 1 // id: %4
+  %5 = begin_borrow %1 : $String                  // users: %10, %6
+  %6 = copy_value %5 : $String                    // user: %8
+  %7 = begin_access [modify] [unknown] %3 : $*String // users: %9, %8
+  assign %6 to %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  end_borrow %5 : $String                         // id: %10
+  destroy_value %1 : $String                      // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvi'
+
+// ViewModel.privateProperty.getter
+// Isolation: unspecified
+sil private [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String {
+// %0 "self"                                      // users: %7, %5, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %3
+  %3 = upcast %2 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %6, %5
+  // function_ref ViewModel.access<A>(keyPath:)
+  %4 = function_ref @$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> () // user: %5
+  %5 = apply %4<String>(%3, %0) : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> ()
+  destroy_value %3 : $KeyPath<ViewModel, String>  // id: %6
+  %7 = ref_element_addr %0 : $ViewModel, #ViewModel._privateProperty // user: %8
+  %8 = begin_access [read] [dynamic] %7 : $*String // users: %10, %9
+  %9 = load [copy] %8 : $*String                  // user: %11
+  end_access %8 : $*String                        // id: %10
+  return %9 : $String                             // id: %11
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg'
+
+// key path getter for ViewModel.privateProperty : ViewModel
+sil shared [thunk] [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String {
+// %0                                             // user: %9
+// %1                                             // user: %3
+bb0(%0 : $*String, %1 : $*ViewModel):
+  %2 = alloc_stack $ViewModel                     // users: %11, %4, %3
+  copy_addr %1 to [init] %2 : $*ViewModel         // id: %3
+  %4 = load [take] %2 : $*ViewModel               // users: %10, %5
+  %5 = begin_borrow %4 : $ViewModel               // users: %8, %7
+  // function_ref ViewModel.privateProperty.getter
+  %6 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String // user: %7
+  %7 = apply %6(%5) : $@convention(method) (@guaranteed ViewModel) -> @owned String // user: %9
+  end_borrow %5 : $ViewModel                      // id: %8
+  store %7 to [init] %0 : $*String                // id: %9
+  destroy_value %4 : $ViewModel                   // id: %10
+  dealloc_stack %2 : $*ViewModel                  // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12 : $()                                // id: %13
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK'
+
+// key path setter for ViewModel.privateProperty : ViewModel
+sil shared [thunk] [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> () {
+// %0                                             // user: %3
+// %1                                             // user: %6
+bb0(%0 : $*String, %1 : $*ViewModel):
+  %2 = alloc_stack $String                        // users: %12, %4, %3
+  copy_addr %0 to [init] %2 : $*String            // id: %3
+  %4 = load [take] %2 : $*String                  // user: %9
+  %5 = alloc_stack $ViewModel                     // users: %11, %7, %6
+  copy_addr %1 to [init] %5 : $*ViewModel         // id: %6
+  %7 = load [take] %5 : $*ViewModel               // users: %10, %9
+  // function_ref ViewModel.privateProperty.setter
+  %8 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // user: %9
+  %9 = apply %8(%4, %7) : $@convention(method) (@owned String, @guaranteed ViewModel) -> ()
+  destroy_value %7 : $ViewModel                   // id: %10
+  dealloc_stack %5 : $*ViewModel                  // id: %11
+  dealloc_stack %2 : $*String                     // id: %12
+  %13 = tuple ()                                  // user: %14
+  return %13 : $()                                // id: %14
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk'
+
+// ViewModel.privateProperty.setter
+// Isolation: unspecified
+sil private [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () {
+// %0 "newValue"                                  // users: %20, %9, %2
+// %1 "self"                                      // users: %13, %8, %3
+bb0(%0 : @owned $String, %1 : @guaranteed $ViewModel):
+  debug_value %0 : $String, let, name "newValue", argno 1 // id: %2
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %3
+  %4 = alloc_stack $()                            // users: %19, %18, %13
+  %5 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %6
+  %6 = upcast %5 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %17, %13
+  // function_ref closure #1 in ViewModel.privateProperty.setter
+  %7 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvsyyXEfU_ : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> // user: %10
+  %8 = copy_value %1 : $ViewModel                 // user: %10
+  %9 = copy_value %0 : $String                    // user: %10
+  %10 = partial_apply [callee_guaranteed] %7(%8, %9) : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> // users: %16, %11
+  %11 = convert_escape_to_noescape [not_guaranteed] %10 : $@callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> to $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // users: %15, %13
+  // function_ref ViewModel.withMutation<A, B>(keyPath:_:)
+  %12 = function_ref @$s9ViewModelAAC12withMutation7keyPath_q_s03KeyF0CyABxG_q_yKXEtKr0_lF : $@convention(method) <τ_0_0, τ_0_1> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_1>, @guaranteed ViewModel) -> (@out τ_0_1, @error any Error) // user: %13
+  try_apply %12<String, ()>(%4, %6, %11, %1) : $@convention(method) <τ_0_0, τ_0_1> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_1>, @guaranteed ViewModel) -> (@out τ_0_1, @error any Error), normal bb1, error bb2 // id: %13
+
+bb1(%14 : $()):                                   // Preds: bb0
+  destroy_value %11 : $@noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // id: %15
+  destroy_value %10 : $@callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <()> // id: %16
+  destroy_value %6 : $KeyPath<ViewModel, String>  // id: %17
+  %18 = load [trivial] %4 : $*()
+  dealloc_stack %4 : $*()                         // id: %19
+  destroy_value %0 : $String                      // id: %20
+  %21 = tuple ()                                  // user: %22
+  return %21 : $()                                // id: %22
+
+bb2(%23 : @owned $any Error):                     // Preds: bb0
+  unreachable                                     // id: %24
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs'
+
+// closure #1 in ViewModel.privateProperty.setter
+// Isolation: nonisolated
+sil private [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvsyyXEfU_ : $@convention(thin) @substituted <τ_0_0> (@guaranteed ViewModel, @guaranteed String) -> (@out τ_0_0, @error any Error) for <()> {
+// %0 "$return_value"
+// %1 "self"                                      // users: %7, %4
+// %2 "newValue"                                  // users: %6, %5
+bb0(%0 : $*(), %1 : @closureCapture @guaranteed $ViewModel, %2 : @closureCapture @guaranteed $String):
+  debug_value undef : $any Error, var, name "$error", argno 1 // id: %3
+  debug_value %1 : $ViewModel, let, name "self", argno 2 // id: %4
+  debug_value %2 : $String, let, name "newValue", argno 3 // id: %5
+  %6 = copy_value %2 : $String                    // user: %9
+  %7 = ref_element_addr %1 : $ViewModel, #ViewModel._privateProperty // user: %8
+  %8 = begin_access [modify] [dynamic] %7 : $*String // users: %10, %9
+  assign %6 to %8 : $*String                      // id: %9
+  end_access %8 : $*String                        // id: %10
+  %11 = tuple ()                                  // user: %12
+  return %11 : $()                                // id: %12
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvsyyXEfU_'
+
+// ViewModel.privateProperty.modify
+// Isolation: unspecified
+sil private [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM : $@yield_once @convention(method) (@guaranteed ViewModel) -> @yields @inout String {
+// %0 "self"                                      // users: %26, %31, %21, %11, %7, %5, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %3
+  %3 = upcast %2 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %6, %5
+  // function_ref ViewModel.access<A>(keyPath:)
+  %4 = function_ref @$s9ViewModelAAC6access7keyPathys03KeyE0CyABxG_tlF : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> () // user: %5
+  %5 = apply %4<String>(%3, %0) : $@convention(method) <τ_0_0> (@guaranteed KeyPath<ViewModel, τ_0_0>, @guaranteed ViewModel) -> ()
+  destroy_value %3 : $KeyPath<ViewModel, String>  // id: %6
+  %7 = ref_element_addr %0 : $ViewModel, #ViewModel._$observationRegistrar // user: %9
+  %8 = alloc_stack $ObservationRegistrar          // users: %20, %19, %15, %9
+  copy_addr %7 to [init] %8 : $*ObservationRegistrar // id: %9
+  %10 = alloc_stack $ViewModel                    // users: %18, %11
+  %11 = store_borrow %0 to %10 : $*ViewModel      // users: %17, %15
+  %12 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %13
+  %13 = upcast %12 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %16, %15
+  // function_ref ObservationRegistrar.willSet<A, B>(_:keyPath:)
+  %14 = function_ref @$s11Observation0A9RegistrarV7willSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> () // user: %15
+  %15 = apply %14<ViewModel, String>(%11, %13, %8) : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+  destroy_value %13 : $KeyPath<ViewModel, String> // id: %16
+  end_borrow %11 : $*ViewModel                    // id: %17
+  dealloc_stack %10 : $*ViewModel                 // id: %18
+  destroy_addr %8 : $*ObservationRegistrar        // id: %19
+  dealloc_stack %8 : $*ObservationRegistrar       // id: %20
+  %21 = ref_element_addr %0 : $ViewModel, #ViewModel._privateProperty // user: %22
+  %22 = begin_access [modify] [dynamic] %21 : $*String // users: %24, %29, %23
+  yield %22 : $*String, resume bb1, unwind bb2    // id: %23
+
+bb1:                                              // Preds: bb0
+  end_access %22 : $*String                       // id: %24
+  // function_ref $defer #1 () in ViewModel.privateProperty.modify
+  %25 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () // user: %26
+  %26 = apply %25(%0) : $@convention(thin) (@guaranteed ViewModel) -> ()
+  %27 = tuple ()                                  // user: %28
+  return %27 : $()                                // id: %28
+
+bb2:                                              // Preds: bb0
+  end_access %22 : $*String                       // id: %29
+  // function_ref $defer #1 () in ViewModel.privateProperty.modify
+  %30 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () // user: %31
+  %31 = apply %30(%0) : $@convention(thin) (@guaranteed ViewModel) -> ()
+  unwind                                          // id: %32
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM'
+
+// $defer #1 () in ViewModel.privateProperty.modify
+// Isolation: unspecified
+sil private [ossa] @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM6$deferL_yyF : $@convention(thin) (@guaranteed ViewModel) -> () {
+// %0 "self"                                      // users: %6, %2, %1
+bb0(%0 : @closureCapture @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel._$observationRegistrar // user: %4
+  %3 = alloc_stack $ObservationRegistrar          // users: %15, %14, %10, %4
+  copy_addr %2 to [init] %3 : $*ObservationRegistrar // id: %4
+  %5 = alloc_stack $ViewModel                     // users: %13, %6
+  %6 = store_borrow %0 to %5 : $*ViewModel        // users: %12, %10
+  %7 = keypath $ReferenceWritableKeyPath<ViewModel, String>, (root $ViewModel; settable_property $String,  id @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvg : $@convention(method) (@guaranteed ViewModel) -> @owned String, getter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTK : $@convention(keypath_accessor_getter) (@in_guaranteed ViewModel) -> @out String, setter @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpABTk : $@convention(keypath_accessor_setter) (@in_guaranteed String, @in_guaranteed ViewModel) -> ()) // user: %8
+  %8 = upcast %7 : $ReferenceWritableKeyPath<ViewModel, String> to $KeyPath<ViewModel, String> // users: %11, %10
+  // function_ref ObservationRegistrar.didSet<A, B>(_:keyPath:)
+  %9 = function_ref @$s11Observation0A9RegistrarV6didSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> () // user: %10
+  %10 = apply %9<ViewModel, String>(%6, %8, %3) : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+  destroy_value %8 : $KeyPath<ViewModel, String>  // id: %11
+  end_borrow %6 : $*ViewModel                     // id: %12
+  dealloc_stack %5 : $*ViewModel                  // id: %13
+  destroy_addr %3 : $*ObservationRegistrar        // id: %14
+  dealloc_stack %3 : $*ObservationRegistrar       // id: %15
+  %16 = tuple ()                                  // user: %17
+  return %16 : $()                                // id: %17
+} // end sil function '$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvM6$deferL_yyF'
+
+// variable initialization expression of ViewModel._$observationRegistrar
+// Isolation: unspecified
+sil hidden [transparent] [ossa] @$s9ViewModelAAC22_$observationRegistrar33_1E59A94D38984979103BAB9BD1543592LL11Observation0jD0Vvpfi : $@convention(thin) () -> @out ObservationRegistrar {
+// %0 "$return_value"                             // user: %3
+bb0(%0 : $*ObservationRegistrar):
+  %1 = metatype $@thin ObservationRegistrar.Type  // user: %3
+  // function_ref ObservationRegistrar.init()
+  %2 = function_ref @$s11Observation0A9RegistrarVACycfC : $@convention(method) (@thin ObservationRegistrar.Type) -> @out ObservationRegistrar // user: %3
+  %3 = apply %2(%0, %1) : $@convention(method) (@thin ObservationRegistrar.Type) -> @out ObservationRegistrar
+  %4 = tuple ()                                   // user: %5
+  return %4 : $()                                 // id: %5
+} // end sil function '$s9ViewModelAAC22_$observationRegistrar33_1E59A94D38984979103BAB9BD1543592LL11Observation0jD0Vvpfi'
+
+// ObservationRegistrar.init()
+// Isolation: unspecified
+sil [available 14.0] @$s11Observation0A9RegistrarVACycfC : $@convention(method) (@thin ObservationRegistrar.Type) -> @out ObservationRegistrar
+
+// ViewModel._$observationRegistrar.getter
+// Isolation: unspecified
+sil private [transparent] [ossa] @$s9ViewModelAAC22_$observationRegistrar33_1E59A94D38984979103BAB9BD1543592LL11Observation0jD0Vvg : $@convention(method) (@guaranteed ViewModel) -> @out ObservationRegistrar {
+// %0 "$return_value"                             // user: %4
+// %1 "self"                                      // users: %3, %2
+bb0(%0 : $*ObservationRegistrar, %1 : @guaranteed $ViewModel):
+  debug_value %1 : $ViewModel, let, name "self", argno 1 // id: %2
+  %3 = ref_element_addr %1 : $ViewModel, #ViewModel._$observationRegistrar // user: %4
+  copy_addr %3 to [init] %0 : $*ObservationRegistrar // id: %4
+  %5 = tuple ()                                   // user: %6
+  return %5 : $()                                 // id: %6
+} // end sil function '$s9ViewModelAAC22_$observationRegistrar33_1E59A94D38984979103BAB9BD1543592LL11Observation0jD0Vvg'
+
+// ObservationRegistrar.access<A, B>(_:keyPath:)
+// Isolation: unspecified
+sil [available 14.0] @$s11Observation0A9RegistrarV6access_7keyPathyx_s03KeyE0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+
+// ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)
+// Isolation: unspecified
+sil [available 14.0] @$s11Observation0A9RegistrarV12withMutation2of7keyPath_q0_x_s03KeyG0Cyxq_Gq0_yKXEtKAA10ObservableRzr1_lF : $@convention(method) <τ_0_0, τ_0_1, τ_0_2 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @guaranteed @noescape @callee_guaranteed @substituted <τ_0_0> () -> (@out τ_0_0, @error any Error) for <τ_0_2>, @in_guaranteed ObservationRegistrar) -> (@out τ_0_2, @error any Error)
+
+// ViewModel.deinit
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAACfd : $@convention(method) (@guaranteed ViewModel) -> @owned Builtin.NativeObject {
+// %0 "self"                                      // users: %18, %14, %10, %6, %2, %1
+bb0(%0 : @guaranteed $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = ref_element_addr %0 : $ViewModel, #ViewModel._observableProperty // user: %3
+  %3 = begin_access [deinit] [static] %2 : $*String // users: %5, %4
+  destroy_addr %3 : $*String                      // id: %4
+  end_access %3 : $*String                        // id: %5
+  %6 = ref_element_addr %0 : $ViewModel, #ViewModel.observationIgnoredProperty // user: %7
+  %7 = begin_access [deinit] [static] %6 : $*String // users: %9, %8
+  destroy_addr %7 : $*String                      // id: %8
+  end_access %7 : $*String                        // id: %9
+  %10 = ref_element_addr %0 : $ViewModel, #ViewModel._privateProperty // user: %11
+  %11 = begin_access [deinit] [static] %10 : $*String // users: %13, %12
+  destroy_addr %11 : $*String                     // id: %12
+  end_access %11 : $*String                       // id: %13
+  %14 = ref_element_addr %0 : $ViewModel, #ViewModel._$observationRegistrar // user: %15
+  %15 = begin_access [deinit] [static] %14 : $*ObservationRegistrar // users: %17, %16
+  destroy_addr %15 : $*ObservationRegistrar       // id: %16
+  end_access %15 : $*ObservationRegistrar         // id: %17
+  %18 = unchecked_ref_cast %0 : $ViewModel to $Builtin.NativeObject // user: %19
+  %19 = unchecked_ownership_conversion %18 : $Builtin.NativeObject, @guaranteed to @owned // user: %20
+  return %19 : $Builtin.NativeObject              // id: %20
+} // end sil function '$s9ViewModelAACfd'
+
+// ViewModel.__deallocating_deinit
+// Isolation: nonisolated
+sil hidden [ossa] @$s9ViewModelAACfD : $@convention(method) (@owned ViewModel) -> () {
+// %0 "self"                                      // users: %6, %3, %1
+bb0(%0 : @owned $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  // function_ref ViewModel.deinit
+  %2 = function_ref @$s9ViewModelAACfd : $@convention(method) (@guaranteed ViewModel) -> @owned Builtin.NativeObject // user: %4
+  %3 = begin_borrow %0 : $ViewModel               // users: %5, %4
+  %4 = apply %2(%3) : $@convention(method) (@guaranteed ViewModel) -> @owned Builtin.NativeObject // user: %7
+  end_borrow %3 : $ViewModel                      // id: %5
+  end_lifetime %0 : $ViewModel                    // id: %6
+  %7 = unchecked_ref_cast %4 : $Builtin.NativeObject to $ViewModel // user: %8
+  dealloc_ref %7 : $ViewModel                     // id: %8
+  %9 = tuple ()                                   // user: %10
+  return %9 : $()                                 // id: %10
+} // end sil function '$s9ViewModelAACfD'
+
+// ViewModel.__allocating_init()
+// Isolation: unspecified
+sil hidden [exact_self_class] [ossa] @$s9ViewModelAACABycfC : $@convention(method) (@thick ViewModel.Type) -> @owned ViewModel {
+// %0 "$metatype"
+bb0(%0 : $@thick ViewModel.Type):
+  %1 = alloc_ref $ViewModel                       // user: %3
+  // function_ref ViewModel.init()
+  %2 = function_ref @$s9ViewModelAACABycfc : $@convention(method) (@owned ViewModel) -> @owned ViewModel // user: %3
+  %3 = apply %2(%1) : $@convention(method) (@owned ViewModel) -> @owned ViewModel // user: %4
+  return %3 : $ViewModel                          // id: %4
+} // end sil function '$s9ViewModelAACABycfC'
+
+// ViewModel.init()
+// Isolation: unspecified
+sil hidden [ossa] @$s9ViewModelAACABycfc : $@convention(method) (@owned ViewModel) -> @owned ViewModel {
+// %0 "self"                                      // users: %2, %1
+bb0(%0 : @owned $ViewModel):
+  debug_value %0 : $ViewModel, let, name "self", argno 1 // id: %1
+  %2 = mark_uninitialized [rootself] %0 : $ViewModel // users: %39, %38, %33, %23, %15, %5
+  // function_ref variable initialization expression of ViewModel.observableProperty
+  %3 = function_ref @$s9ViewModelAAC18observablePropertySSvpfi : $@convention(thin) () -> @owned String // user: %4
+  %4 = apply %3() : $@convention(thin) () -> @owned String // user: %11
+  %5 = begin_borrow %2 : $ViewModel               // users: %14, %11, %10, %7
+  // function_ref ViewModel.observableProperty.init
+  %6 = function_ref @$s9ViewModelAAC18observablePropertySSvi : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String // user: %8
+  %7 = value_metatype $@thick ViewModel.Type, %5 : $ViewModel // user: %8
+  %8 = partial_apply [callee_guaranteed] [on_stack] %6(%7) : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String // users: %13, %11
+  // function_ref ViewModel.observableProperty.setter
+  %9 = function_ref @$s9ViewModelAAC18observablePropertySSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // user: %10
+  %10 = partial_apply [callee_guaranteed] [on_stack] %9(%5) : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // users: %12, %11
+  assign_or_init #ViewModel.observableProperty, self %5 : $ViewModel, value %4 : $String, init %8 : $@noescape @callee_guaranteed (@owned String) -> @out String, set %10 : $@noescape @callee_guaranteed (@owned String) -> () // id: %11
+  destroy_value %10 : $@noescape @callee_guaranteed (@owned String) -> () // id: %12
+  destroy_value %8 : $@noescape @callee_guaranteed (@owned String) -> @out String // id: %13
+  end_borrow %5 : $ViewModel                      // id: %14
+  %15 = begin_borrow %2 : $ViewModel              // users: %20, %16
+  %16 = ref_element_addr %15 : $ViewModel, #ViewModel.observationIgnoredProperty // user: %19
+  // function_ref variable initialization expression of ViewModel.observationIgnoredProperty
+  %17 = function_ref @$s9ViewModelAAC25observationIgnoredPropertySSvpfi : $@convention(thin) () -> @owned String // user: %18
+  %18 = apply %17() : $@convention(thin) () -> @owned String // user: %19
+  store %18 to [init] %16 : $*String              // id: %19
+  end_borrow %15 : $ViewModel                     // id: %20
+  // function_ref variable initialization expression of ViewModel.privateProperty
+  %21 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvpfi : $@convention(thin) () -> @owned String // user: %22
+  %22 = apply %21() : $@convention(thin) () -> @owned String // user: %29
+  %23 = begin_borrow %2 : $ViewModel              // users: %32, %29, %28, %25
+  // function_ref ViewModel.privateProperty.init
+  %24 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvi : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String // user: %26
+  %25 = value_metatype $@thick ViewModel.Type, %23 : $ViewModel // user: %26
+  %26 = partial_apply [callee_guaranteed] [on_stack] %24(%25) : $@convention(thin) (@owned String, @thick ViewModel.Type) -> @out String // users: %31, %29
+  // function_ref ViewModel.privateProperty.setter
+  %27 = function_ref @$s9ViewModelAAC15privateProperty33_1E59A94D38984979103BAB9BD1543592LLSSvs : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // user: %28
+  %28 = partial_apply [callee_guaranteed] [on_stack] %27(%23) : $@convention(method) (@owned String, @guaranteed ViewModel) -> () // users: %30, %29
+  assign_or_init #ViewModel.privateProperty, self %23 : $ViewModel, value %22 : $String, init %26 : $@noescape @callee_guaranteed (@owned String) -> @out String, set %28 : $@noescape @callee_guaranteed (@owned String) -> () // id: %29
+  destroy_value %28 : $@noescape @callee_guaranteed (@owned String) -> () // id: %30
+  destroy_value %26 : $@noescape @callee_guaranteed (@owned String) -> @out String // id: %31
+  end_borrow %23 : $ViewModel                     // id: %32
+  %33 = begin_borrow %2 : $ViewModel              // users: %37, %34
+  %34 = ref_element_addr %33 : $ViewModel, #ViewModel._$observationRegistrar // user: %36
+  // function_ref variable initialization expression of ViewModel._$observationRegistrar
+  %35 = function_ref @$s9ViewModelAAC22_$observationRegistrar33_1E59A94D38984979103BAB9BD1543592LL11Observation0jD0Vvpfi : $@convention(thin) () -> @out ObservationRegistrar // user: %36
+  %36 = apply %35(%34) : $@convention(thin) () -> @out ObservationRegistrar
+  end_borrow %33 : $ViewModel                     // id: %37
+  %38 = copy_value %2 : $ViewModel                // user: %40
+  destroy_value %2 : $ViewModel                   // id: %39
+  return %38 : $ViewModel                         // id: %40
+} // end sil function '$s9ViewModelAACABycfc'
+
+// ObservationRegistrar.didSet<A, B>(_:keyPath:)
+// Isolation: unspecified
+sil [available 14.0] @$s11Observation0A9RegistrarV6didSet_7keyPathyx_s03KeyF0Cyxq_GtAA10ObservableRzr0_lF : $@convention(method) <τ_0_0, τ_0_1 where τ_0_0 : Observable> (@in_guaranteed τ_0_0, @guaranteed KeyPath<τ_0_0, τ_0_1>, @in_guaranteed ObservationRegistrar) -> ()
+
+sil_vtable ViewModel {
+  #ViewModel.init!allocator: (ViewModel.Type) -> () -> ViewModel : @$s9ViewModelAACABycfC	// ViewModel.__allocating_init()
+  #ViewModel.deinit!deallocator: @$s9ViewModelAACfD	// ViewModel.__deallocating_deinit
+}
+
+sil_witness_table hidden ViewModel: Observable module ViewModel {
+}
+
+
+
+// Mappings from '#fileID' to '#filePath':
+//   'ViewModel/ViewModel.swift' => 'ViewModel.swift'
+
+
